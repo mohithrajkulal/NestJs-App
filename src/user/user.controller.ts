@@ -25,12 +25,12 @@ export class UserController {
     @UseGuards(JwtAuthGuard)
     @ApiResponse({ status: 201, description: 'fetch seleceted user' })
     findOne(@Param('id') id: string) {
-        return this.userService.findOne(+id)
+        return this.userService.findOne(id)
     }
 
     @Delete(':id')
     @ApiResponse({ status: 201, description: 'delete seleceted user' })
     remove(@Param('id') id: string) {
-        return this.userService.remove(+id)
+        return this.userService.remove(id)
     }
 }

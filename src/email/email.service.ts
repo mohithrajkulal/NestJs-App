@@ -3,8 +3,7 @@ import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class EmailService {
-    async sendEmail(to: string, subject: string, text: string) {
-      const transporter = nodemailer.createTransport({
+      private transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
           user: 'mohithrajkulal5@gmail.com',
@@ -12,9 +11,21 @@ export class EmailService {
         },
       });
 
-      const info = await transporter.sendMail({
-        from: '"Nest App" <mohithrajkulal5@gmail.com>',
+    async sendEmail(to: string, subject: string, text: string) {
+      const info = await this.transporter.sendMail({
+        from: 'mohithrajkulal5@gmail.com',
         to,
+        subject,
+        text,
+      });
+
+      return { message: 'Email sent', info };
+    }
+
+    async recieveEmail(from: string, subject: string, text: string) {
+      const info = await this.transporter.sendMail({
+        from,
+        to: 'mohithrajkulal5@gmail.com',
         subject,
         text,
       });

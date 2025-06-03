@@ -5,7 +5,7 @@ import { ApiTags, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('email')
 @ApiBearerAuth()
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('email')
 export class EmailController {
     constructor(private readonly emailService: EmailService) {}
@@ -34,5 +34,21 @@ export class EmailController {
                 info: error?.message
             }
         }
+    }
+
+    @Post('recieve')
+    @ApiBody({
+        schema: {
+            type: 'object',
+            properties: {
+                from: { type: 'string', example: 'example@example.com' },
+                subject: { type: 'string', example: 'Test Subject' },
+                text: { type: 'string', example: 'Hello from NestJS' },
+            },
+        },
+    })
+    async recieveEmail(@Body() body: { from: string; subject: string; text: string}) {
+        const result = await this.emailService.recieveEmail(body.from, body.subject, body.text);
+        return result;
     }
 }

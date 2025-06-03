@@ -22,11 +22,11 @@ export class UserService {
     return prisma.user.findMany();
    }
 
-   async findOne(id: number) {
+   async findOne(id: string) {
     return prisma.user.findUnique({ where: { id }})
    }
 
-   async remove(id: number) {
+   async remove(id: string) {
     return prisma.user.delete({ where: { id }})
    }
 }

@@ -3,13 +3,13 @@ import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class EmailService {
-      private transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'mohithrajkulal5@gmail.com',
-          pass: 'mruu lhdh yrny bylf',
-        },
-      });
+    private transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'mohithrajkulal5@gmail.com',
+        pass: 'mruu lhdh yrny bylf',
+      },
+    });
 
     async sendEmail(to: string, subject: string, text: string) {
       const info = await this.transporter.sendMail({
